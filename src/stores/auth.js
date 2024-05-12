@@ -16,19 +16,24 @@ export const useAuthStore = defineStore("auth", () => {
   const error = ref('');
   const loader = ref(false);
 
-  const signup = async (payload) => {
+  const auth = async (payload, type) => {
+
+    const stringUrl = type === 'singup' ? 'signUp' : 'signInWithPassword';
+
     error.value = ''
     loader.value = true
 
     try {
       let response = await Axios.post(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`,        
+        `https://identitytoolkit.googleapis.com/v1/accounts:${stringUrl}?key=${API_KEY}`,        
 
         {
           ...payload,
           returnSecureToken: true,
         }
       );
+
+      console.log(response.data);
 
        userInfo.value = {
         token: response.data.idToken,
@@ -45,10 +50,16 @@ export const useAuthStore = defineStore("auth", () => {
         case 'EMAIL_EXISTS':
           error.value = 'Такой email уже есть!'
           break;
+        case 'EMAIL_FOUND':
+          error.value = 'Email не найден!'
+          break;
+        case 'INVALID_PASSWORD':
+          error.value = 'Не верный пароль!'
+          break;          
         case 'OPERATION_NOT_ALLOWED':
           error.value = 'Дейстивие не разрешено'
           break;
-          default:
+        default:
           error.value = 'Ошибка неизвестна'
           break;
       }
@@ -57,5 +68,5 @@ export const useAuthStore = defineStore("auth", () => {
     }
   };
 
-  return { signup, userInfo, error, loader };
+  return { auth, userInfo, error, loader };
 });

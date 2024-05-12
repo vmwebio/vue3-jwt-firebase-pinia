@@ -12,15 +12,15 @@ const authStore = useAuthStore();
 const email = ref();
 const password = ref();
 
-const signup = async () => {
-  await authStore.auth({ email: email.value, password: password.value }, 'signup');
+const signin = async () => {
+  await authStore.auth({ email: email.value, password: password.value }, 'signin');
 };
 </script>
 
 <template>
   <main>
     <div class="container">
-      <h1>Регистрация</h1>
+      <h1>Войти</h1>
       <form class="flex flex-column gap-3">
         <Message v-if="authStore.error" severity="warn">{{ authStore.error }}</Message>
         <div class="p-inputgroup flex-1">
@@ -47,10 +47,10 @@ const signup = async () => {
         </div>
         <Loader v-if="authStore.loader"/> <!--Loader-->
         <div v-else class="flex flex-column gap-3">
-          <Button label="Зарегистрироватся" @click="signup" />
+          <Button label="Войти" @click="signin" />
           <span
-            >Вы уже зарегистрированы?
-            <router-link to="/signin">Войти</router-link></span
+            >Нет аккаунта?
+            <router-link to="/signup">Зарегистрироватся</router-link></span
           >
         </div>
       </form>
