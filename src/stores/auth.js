@@ -14,9 +14,11 @@ export const useAuthStore = defineStore("auth", () => {
   });
 
   const error = ref('');
+  const loader = ref(false);
 
   const signup = async (payload) => {
     error.value = ''
+    loader.value = true
 
     try {
       let response = await Axios.post(
@@ -36,7 +38,7 @@ export const useAuthStore = defineStore("auth", () => {
         expiresIn: response.data.expiresIn,
       },
 
-      console.log("Data", response.data);
+      loader.value = false  
       
     } catch (err) {
       switch (err.response.data.error.message) {
@@ -50,8 +52,10 @@ export const useAuthStore = defineStore("auth", () => {
           error.value = 'Ошибка неизвестна'
           break;
       }
+
+      loader.value = false
     }
   };
 
-  return { signup, userInfo, error };
+  return { signup, userInfo, error, loader };
 });
