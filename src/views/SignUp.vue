@@ -1,9 +1,10 @@
 <script setup>
 import { ref } from "vue";
-import { useAuthStore } from "@/stores/auth";
+import { useAuthStore } from "../stores/auth";
 
 import InputText from "primevue/inputtext";
 import Button from "primevue/button";
+import Message from "primevue/message";
 
 const authStore = useAuthStore();
 
@@ -20,9 +21,10 @@ const signup = async () => {
     <div class="container">
       <h1>Регистрация</h1>
       <form class="flex flex-column gap-3">
+        <Message v-if="authStore.error" severity="warn">{{ authStore.error }}</Message>
         <div class="p-inputgroup flex-1">
           <span class="p-inputgroup-addon">
-            <i class="pi pi-user"></i>
+            <i class="pi pi-at"></i>
           </span>
           <InputText
             type="email"
@@ -33,7 +35,7 @@ const signup = async () => {
         </div>
         <div class="p-inputgroup flex-1">
           <span class="p-inputgroup-addon">
-            <i class="pi pi-sign-in"></i>
+            <i class="pi pi-lock"></i>
           </span>
           <InputText
             type="password"
