@@ -1,14 +1,17 @@
 <script setup>
 import { ref } from "vue";
+import { useAuthStore } from "@/stores/auth";
 
 import InputText from "primevue/inputtext";
 import Button from "primevue/button";
 
+const authStore = useAuthStore();
+
 const email = ref();
 const password = ref();
 
-const signup = () => {
-  console.log("test");
+const signup = async () => {
+  await authStore.signup({ email: email.value, password: password.value });
 };
 </script>
 
