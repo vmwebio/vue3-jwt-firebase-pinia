@@ -1,13 +1,12 @@
 <script setup>
-import { ref } from "vue";
-import { useAuthStore } from "../stores/auth";
-import { useRouter } from "vue-router";
+import {ref} from 'vue';
+import {useAuthStore} from '../stores/auth';
+import {useRouter} from 'vue-router'
 
-import InputText from "primevue/inputtext";
-import Button from "primevue/button";
-import Message from "primevue/message";
-import Loader from "../components/Loader.vue"
-
+import InputText from 'primevue/inputtext';
+import Button from 'primevue/button';
+import Message from 'primevue/message';
+import Loader from '../components/Loader.vue'
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -18,7 +17,7 @@ const password = ref();
 const signin = async () => {
   await authStore.auth({email: email.value, password: password.value}, 'signin')
   router.push('/cars')
-};
+}
 </script>
 
 <template>
