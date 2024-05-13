@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {useAuthStore} from './stores/auth'
+import { useAuthStore } from './stores/auth'
 import router from './router'
 
 // Создание экземпляра axios для работы с API
@@ -21,17 +21,24 @@ axiosApiInstance.interceptors.request.use((config) => {
   return config
 })
 
-// Перехватчик ответов для обработки ошибки 401 (Unauthorized)
+// Перехватчик ответов для обработки ошибки 401 (Unauthorized) и 400 (Bad Request)
 axiosApiInstance.interceptors.response.use((response) => {
   return response
 }, async function (error) {
   const authStore = useAuthStore()
   const originalRequest = error.config
-  // Проверка на ошибку 401 и отсутствие повторных попыток выполнения запроса
-  if (error.response.status === 401 && !originalRequest._retry) {
-    originalRequest._retry = true;
-    try {
+  
+  // Проверка на ошибку 400 (неправильный запрос) или 401 (неавторизованный доступ)
+  if (error.response.status === 400 || (error.response.status === 401 && !originalRequest._retry)) {
+    if (error.response.status === 400) {
+      // Обработка ошибки 400 (неправильный запрос)
+      // Ваш код для обработки неправильного ввода данных при логине или регистрации
+      console.log('Ошибка в запросе:', error.response.data); // Вывод информации об ошибке в консоль
+      // Дополнительные действия, если необходимо
+    }
+    
     // Попытка обновления токенов с помощью refreshToken
+    try {
       const newTokens = await axios.post(
         `https://securetoken.googleapis.com/v1/token?key=${apiKey}`, {
           grant_type: 'refresh_token',
@@ -52,9 +59,9 @@ axiosApiInstance.interceptors.response.use((response) => {
       authStore.userInfo.token = ''
       authStore.userInfo.refreshToken = ''
     }
-    
   }
-  // Пробрасываем ошибку дальше по цепочке промисов для обработки ошибки без авторизации
+  
+  // Пробрасываем ошибку дальше по цепочке промисов
   return Promise.reject(error);
 })
 
