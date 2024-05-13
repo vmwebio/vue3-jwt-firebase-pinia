@@ -14,6 +14,10 @@ const router = useRouter();
 const email = ref();
 const password = ref();
 
+const submitForm = () => {
+  signup();
+};
+
 const signup = async () => {
   await authStore.auth({email: email.value, password: password.value}, 'signup')
   router.push('/cars')
@@ -35,6 +39,7 @@ const signup = async () => {
             v-model="email"
             placeholder="Ваш Email"
             required
+            @keydown.enter.prevent="submitForm"
           />
         </div>
         <div class="p-inputgroup flex-1">
@@ -46,6 +51,7 @@ const signup = async () => {
             v-model="password"
             placeholder="Ваш пароль"
             required
+            @keydown.enter.prevent="submitForm"
           />
         </div>
         <Loader v-if="authStore.loader"/> <!--Loader-->
