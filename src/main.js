@@ -4,15 +4,12 @@ import "primeflex/primeflex.css";
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import { initializeApp } from "firebase/app"; // Import Firebase
+import PrimeVue from 'primevue/config';
+import './api'
 
 import App from './App.vue'
 import router from './router'
-import './api'
-
-import PrimeVue from 'primevue/config';
-
-// Import Firebase
-import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAS_BRgXKoue7kGxEIPc1XzV2idSmiKCnA",
