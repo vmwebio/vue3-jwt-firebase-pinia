@@ -55,7 +55,7 @@ export const useAuthStore = defineStore('auth', () => {
           error.value = 'Не верный пароль!'
           break;
         default:
-          error.value = 'Ошибка неизвестна'
+          error.value = 'Ошибка'
           break;
       }
       throw error.value;
