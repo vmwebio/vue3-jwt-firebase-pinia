@@ -13,7 +13,7 @@ import { RouterLink, RouterView } from "vue-router";
     <RouterView />
   </main>
 </template>
-<style scoped>
+<style>
 .container {
   max-width: 700px;
   margin: auto;
