@@ -40,11 +40,9 @@ export const useAuthStore = defineStore("auth", () => {
         email: response.data.email,
         userId: response.data.localId,
         refreshToken: response.data.refreshToken,
-        expiresIn: response.data.expiresIn,
-      },
+        expiresIn: response.data.expiresIn
+      }
 
-      loader.value = false  
-      
     } catch (err) {
       switch (err.response.data.error.message) {
         case 'EMAIL_EXISTS':
@@ -64,7 +62,9 @@ export const useAuthStore = defineStore("auth", () => {
           break;
       }
 
-      loader.value = false
+      throw error.value;
+    } finally {
+      loader.value = false;
     }
   };
 
