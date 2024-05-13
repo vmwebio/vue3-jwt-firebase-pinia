@@ -52,7 +52,10 @@ axiosApiInstance.interceptors.response.use((response) => {
       authStore.userInfo.token = ''
       authStore.userInfo.refreshToken = ''
     }
-  }  
+    
+  }
+  // Пробрасываем ошибку дальше по цепочке промисов для обработки ошибки без авторизации
+  return Promise.reject(error);
 })
 
 export default axiosApiInstance
