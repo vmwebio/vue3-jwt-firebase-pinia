@@ -33,9 +33,9 @@ checkUser();
 
 <template>
   <div class="menu">
-    <router-link class="menu__link" to="/">Главная</router-link>
-    <router-link class="menu__link" to="/signin" v-if="!token">Войти</router-link>
-    <router-link class="menu__link" to="/cars" v-if="token">Авто</router-link>
+    <router-link :class="{ 'active-link': $route.path === '/' }" class="menu__link" to="/">Главная</router-link>
+    <router-link :class="{ 'active-link': $route.path === '/signin' && !token }" class="menu__link" to="/signin" v-if="!token">Войти</router-link>
+    <router-link :class="{ 'active-link': $route.path === '/cars' && token }" class="menu__link" to="/cars" v-if="token">Авто</router-link>
     <router-link class="menu__link" to="/signin" v-if="token" @click.prevent="logout">Выйти</router-link>
   </div>
   <div class="container">
@@ -60,5 +60,9 @@ checkUser();
   color: #000;
   margin: 0 20px;
   font-family: 'Arial', sans-serif;
+}
+
+.active-link {
+  color: red;
 }
 </style>
