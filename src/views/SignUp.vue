@@ -15,7 +15,7 @@ const email = ref();
 const password = ref();
 
 const signup = async () => {
-  await authStore.auth({ email: email.value, password: password.value }, 'signup');
+  await authStore.auth({email: email.value, password: password.value}, 'signup')
   router.push('/cars')
 };
 </script>

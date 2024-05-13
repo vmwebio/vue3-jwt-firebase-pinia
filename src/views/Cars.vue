@@ -1,6 +1,6 @@
 <script setup>
 import {ref, onMounted} from 'vue'
-// import axiosApiInstance from '../api'
+import axiosApiInstance from '../api'
 
 import Card from 'primevue/card'
 import Loader from '../components/Loader.vue'
@@ -8,6 +8,7 @@ import Loader from '../components/Loader.vue'
 const cars = ref();
 const showLoader = ref(false);
 
+// Функция для получения списка всех автомобилей
 const getAllCars = async () => {
   showLoader.value = true
   try {
