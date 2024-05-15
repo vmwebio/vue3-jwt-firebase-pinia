@@ -13,7 +13,7 @@ import App from './App.vue'
 import router from './router'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAS_BRgXKoue7kGxEIPc1XzV2idSmiKCnA",
+  apiKey: "API-KEY",
   authDomain: "vue3-jwt-pinia.firebaseapp.com",
   projectId: "vue3-jwt-pinia",
   storageBucket: "vue3-jwt-pinia.appspot.com",
